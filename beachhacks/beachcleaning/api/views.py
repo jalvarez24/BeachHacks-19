@@ -28,6 +28,8 @@ jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
 
 
 class BeachesView(generics.CreateAPIView):
+    permission_classes = (permissions.AllowAny, )
+
     def post(self, request):
         location = request.data.get('location')
         caption = request.data.get('caption')
@@ -60,19 +62,26 @@ class BeachesView(generics.CreateAPIView):
 
         return Response(beaches)
 
+
 class PostView(generics.CreateAPIView):
+    queryset = Post.objects.all()
     serializer_class = PostSerializer
-    permissions_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.IsAuthenticated, )
+
     def post(self, request):
         caption = request.data.get("caption")
-        beachID = request.data.generate("beachID")
-        author = self.request.user
-        post = Post.object.create(
-            caption = caption
-            beachID = int(beachID)
-            author = author
+        beach_id = request.data.get("beach_id")
+        username = request.user.username
+        author=self.request.user
+
+        post = Post.objects.create(
+            caption=caption,
+            beach_id=beach_id,
+            author=author,
+            author_username=username
         )
-        return Response(data=PostSerializer(post).data, status=status.HTTP_201_CREATED)
+        return Response(data=PostSerializer(post).data,
+                        status=status.HTTP_201_CREATED)
 
 
 class LoginView(generics.CreateAPIView):

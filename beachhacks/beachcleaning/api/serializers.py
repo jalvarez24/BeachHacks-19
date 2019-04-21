@@ -5,12 +5,12 @@ from .models import Post
 
 
 class PostSerializer(serializers.ModelSerializer):
+    author = serializers.ReadOnlyField(source='author.id')
+
     class Meta:
         model = Post
-        fields = ('id', 'beachId'
-                  'caption', 'image', 'author', 'date_created',
-                  'date_modified')
-        read_only_fields = ('date_created', 'date_modified')
+        fields = ('id', 'beach_id', 'caption', 'image', 'author',
+                  'author_username')
 
 
 class TokenSerializer(serializers.Serializer):
