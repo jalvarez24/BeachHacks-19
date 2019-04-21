@@ -1,4 +1,6 @@
 import os
+import cloudinary
+import cloudinary.uploader
 from rest_framework import generics
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
@@ -89,10 +91,18 @@ class PostView(generics.CreateAPIView):
         username = request.user.username
         author = self.request.user
 
-        post = Post.objects.create(caption=caption,
-                                   beach_id=beach_id,
-                                   author=author,
-                                   author_username=username)
+        # result = cloudinary.uploader.upload(
+        #     "https://residentialwastesystems.com/wp-content/uploads/2017/09/international-coastal-cleanup-day.jpg"
+        # )
+        image = request.data.get('image')
+        # imageId = result['public_id']
+        post = Post.objects.create(
+            caption=caption,
+            image=image,
+            #    imageId=imageId,
+            beach_id=beach_id,
+            author=author,
+            author_username=username)
         return Response(data=PostSerializer(post).data,
                         status=status.HTTP_201_CREATED)
 
