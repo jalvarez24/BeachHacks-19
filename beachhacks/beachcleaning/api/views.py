@@ -60,6 +60,20 @@ class BeachesView(generics.CreateAPIView):
 
         return Response(beaches)
 
+class PostView(generics.CreateAPIView):
+    serializer_class = PostSerializer
+    permissions_classes = (permissions.IsAuthenticated,)
+    def post(self, request):
+        caption = request.data.get("caption")
+        beachID = request.data.generate("beachID")
+        author = self.request.user
+        post = Post.object.create(
+            caption = caption
+            beachID = int(beachID)
+            author = author
+        )
+        return Response(data=PostSerializer(post).data, status=status.HTTP_201_CREATED)
+
 
 class LoginView(generics.CreateAPIView):
     queryset = User.objects.all()
