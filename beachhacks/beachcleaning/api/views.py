@@ -32,7 +32,6 @@ class BeachesView(generics.CreateAPIView):
 
     def post(self, request):
         location = request.data.get('location')
-        caption = request.data.get('caption')
 
         query_result = google_places.nearby_search(
             location=location,
@@ -63,6 +62,22 @@ class BeachesView(generics.CreateAPIView):
         return Response(beaches)
 
 
+class BeachView(generics.ListAPIView):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+    permission_classes = (permissions.AllowAny, )
+
+    def get(self, request, id=None):
+        try:
+            posts = Post.objects.all().filter(beach_id=id)
+
+            return Response(PostSerializer(posts, many=True).data)
+        except Post.DoesNotExist:
+            data = {}
+            data['posts'] = None
+            return Response(data)
+
+
 class PostView(generics.CreateAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
@@ -72,14 +87,12 @@ class PostView(generics.CreateAPIView):
         caption = request.data.get("caption")
         beach_id = request.data.get("beach_id")
         username = request.user.username
-        author=self.request.user
+        author = self.request.user
 
-        post = Post.objects.create(
-            caption=caption,
-            beach_id=beach_id,
-            author=author,
-            author_username=username
-        )
+        post = Post.objects.create(caption=caption,
+                                   beach_id=beach_id,
+                                   author=author,
+                                   author_username=username)
         return Response(data=PostSerializer(post).data,
                         status=status.HTTP_201_CREATED)
 
