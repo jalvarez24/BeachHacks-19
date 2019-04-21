@@ -10,4 +10,4 @@ class Post(models.Model):
     beach_id = models.CharField(max_length=255)
     caption = models.TextField()
     image = models.CharField(max_length=255)
-    # imageId = models.TextField()
+    imageId = models.CharField(max_length=255)

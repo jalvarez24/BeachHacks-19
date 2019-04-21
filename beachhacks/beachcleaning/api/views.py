@@ -91,18 +91,17 @@ class PostView(generics.CreateAPIView):
         username = request.user.username
         author = self.request.user
 
-        # result = cloudinary.uploader.upload(
-        #     "https://residentialwastesystems.com/wp-content/uploads/2017/09/international-coastal-cleanup-day.jpg"
-        # )
-        image = request.data.get('image')
-        # imageId = result['public_id']
-        post = Post.objects.create(
-            caption=caption,
-            image=image,
-            #    imageId=imageId,
-            beach_id=beach_id,
-            author=author,
-            author_username=username)
+        result = cloudinary.uploader.upload(
+            "https://residentialwastesystems.com/wp-content/uploads/2017/09/international-coastal-cleanup-day.jpg"
+        )
+        image = result['secure_url']
+        imageId = result['public_id']
+        post = Post.objects.create(caption=caption,
+                                   image=image,
+                                   imageId=imageId,
+                                   beach_id=beach_id,
+                                   author=author,
+                                   author_username=username)
         return Response(data=PostSerializer(post).data,
                         status=status.HTTP_201_CREATED)
 
