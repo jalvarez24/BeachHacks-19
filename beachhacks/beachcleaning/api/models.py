@@ -7,4 +7,3 @@ class Post(models.Model):
     beachId = models.IntegerField()
     caption = models.TextField()
     image = models.CharField(max_length=255)
-    rating = models.IntegerField()
