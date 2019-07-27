@@ -9,7 +9,7 @@ Jayro Alvarez
 
 Molita Nuon
 
-**Link to Devpost:** [Tidey on Devpost](https://devpost.com/software/beachcleaning)
+**Link to Devpost:** [Tidey](https://devpost.com/software/beachcleaning)
 
 ## How We built it
 
