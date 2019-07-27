@@ -11,7 +11,8 @@ Molita Nuon
 
 **Link to Devpost:** [Tidey on Devpost](https://devpost.com/software/beachcleaning)
 
-How We built it
+## How We built it
+
 Front-End Technologies: React, HTML, CSS, JavaScript
 
 Back-End Technologies: Python, Django, SQLite
