@@ -2,14 +2,14 @@
 ## Django Web App: Tidey
 Hackathon Project for Cal State Long Beach's BeachHacks 2019
 
+**Link to Devpost:** [Tidey](https://devpost.com/software/beachcleaning)
+
 ## Group Members:
 Himanshu Patel
 
 Jayro Alvarez
 
 Molita Nuon
-
-**Link to Devpost:** [Tidey](https://devpost.com/software/beachcleaning)
 
 ## How We built it
 
